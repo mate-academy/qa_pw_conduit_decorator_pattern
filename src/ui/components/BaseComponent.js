@@ -1,6 +1,7 @@
 import {
   decorateWithUserId,
   decorateWithTitleFromFunction,
+  decorateWithTiming
 } from '../../common/helpers/pw';
 import { test } from '@playwright/test';
 

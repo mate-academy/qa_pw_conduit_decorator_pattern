@@ -22,17 +22,19 @@ export function decorateWithTitleFromFunction(fn) {
 
 export function decorateWithTiming(fn) {
   return async function (...args) {
-    const logger = Logger.getInstance();
+    const logger = Logger.getInstanse();
 
     const startTime = Date.now();
-    const result = await fn(...args);
-    const endTime = Date.now();
 
-    const duration = endTime - startTime;
-
-    logger.info(`Function "${fn.name}" executed in ${duration}ms`);
-
-    return result;
+    try {
+      return await fn(...args);
+    } catch (error) {
+      throw error;
+    } finally {
+      const endTime = Date.now();
+      const duration = endTime - startTime;
+      logger.info(`Execution time: ${duration}ms`);
+    }
   };
 }
 

@@ -1,4 +1,8 @@
 import { camelCaseToPhrase, capitalize } from '../helpers/stringHelpers';
+import { Logger } from '../logger/Logger';
+
+const logger = Logger.getInstance();
+
 
 export function decorateWithUserId(fn, userId = 0) {
   return async function (title, stepToRun) {
@@ -19,5 +23,26 @@ export function decorateWithTitleFromFunction(fn) {
     return await fn(stepTitle, stepToRun);
   };
 }
+
+export function decorateWithTiming(decoratedFn) {
+  return async function (...args) {
+    const startTime = Date.now();
+    let result;
+    try {
+      result = await decoratedFn.apply(this, args);
+      return result;
+    } finally {
+      const endTime = Date.now();
+      const executeFunctionTime = endTime - startTime;
+      logger.info(
+        `Execute function time: ${
+          executeFunctionTime} ms`
+      );
+    }
+  };
+}
+
+
+
 
 export { expect } from '@playwright/test';

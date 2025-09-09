@@ -33,9 +33,10 @@ export class Logger {
     this.log('error', message);
   }
 
-  static getInstance(level = 'error') {
+  static getInstance() {
     if (!Logger.#instance) {
-      const logger = new Logger(level);
+      const envLevel = process.env.LOG_LEVEL || 'error';
+      const logger = new Logger(envLevel);
       Logger.#instance = logger;
       console.log('New Logger instance created');
     }

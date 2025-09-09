@@ -24,16 +24,21 @@ export function decorateWithTitleFromFunction(fn) {
 }
 
 export function decorateWithTiming(decoratedFn) {
-  return async function(functionName, stepToRun) {
+  return async function (...args) {
     const logger = Logger.getInstance();
     const startTime = Date.now();
-    await decoratedFn(functionName, stepToRun);
-    const endTime = Date.now();
-    const executeFunctionTime = endTime - startTime;
-    logger.info(
-      `Finished step: "${functionName}" in ${executeFunctionTime} time`
-    );
-  }
+
+    try {
+      return await decoratedFn.apply(this, args);
+    } finally {
+      const endTime = Date.now();
+      const executeFunctionTime = endTime - startTime;
+      logger.info(
+        `Execute function time: ${
+          executeFunctionTime} ms`
+      );
+    }
+  };
 }
 
 

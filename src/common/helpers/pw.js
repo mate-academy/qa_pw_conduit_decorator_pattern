@@ -1,6 +1,7 @@
 import { camelCaseToPhrase, capitalize } from '../helpers/stringHelpers';
 import { Logger } from '../logger/Logger';
 
+const logger = Logger.getInstance();
 
 
 export function decorateWithUserId(fn, userId = 0) {
@@ -25,11 +26,11 @@ export function decorateWithTitleFromFunction(fn) {
 
 export function decorateWithTiming(decoratedFn) {
   return async function (...args) {
-    const logger = Logger.getInstance();
     const startTime = Date.now();
-
+    let result;
     try {
-      return await decoratedFn.apply(this, args);
+      result = await decoratedFn.apply(this, args);
+      return result;
     } finally {
       const endTime = Date.now();
       const executeFunctionTime = endTime - startTime;

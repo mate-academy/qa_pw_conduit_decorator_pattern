@@ -20,4 +20,22 @@ export function decorateWithTitleFromFunction(fn) {
   };
 }
 
+export function decorateWithTiming(fn) {
+  return async function (...args) {
+    const logger = Logger.getInstanse();
+
+    const startTime = Date.now();
+
+    try {
+      return await fn(...args);
+    } catch (error) {
+      throw error;
+    } finally {
+      const endTime = Date.now();
+      const duration = endTime - startTime;
+      logger.info(`Execution time: ${duration}ms`);
+    }
+  };
+}
+
 export { expect } from '@playwright/test';

@@ -1,8 +1,10 @@
 import {
   decorateWithUserId,
   decorateWithTitleFromFunction,
+  decorateWithTiming,
   expect,
 } from '../../common/helpers/pw';
+
 import { test } from '@playwright/test';
 
 export class BasePage {
@@ -11,8 +13,10 @@ export class BasePage {
   constructor(page, userId = 0) {
     this.page = page;
     this.userId = userId;
-    this.step = decorateWithUserId(test.step, this.userId);
-    this.step = decorateWithTitleFromFunction(this.step);
+    this.step = decorateWithUserId(
+      decorateWithTitleFromFunction(decorateWithTiming(test.step)),
+      this.userId,
+    );
   }
 
   _pageName() {

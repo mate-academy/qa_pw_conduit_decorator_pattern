@@ -28,7 +28,7 @@ In this task you will create the decorator function `decorateWithTiming`. in the
 - Decorator function accepts another function as input `(fn)`;
 - Returns a new function that wraps original function and measure how long it takes to execute, then log the duration.
 - Use `const startTime = Date.now();` and `const endTime = Date.now();` to log the start and end of the function execution. 
-- User singleton logger instance `const logger = Logger.getInstanse()`;
+- User singleton logger instance `const logger = Logger.getInstance()`;
 - Log the duration of the `fn` function execution with `logger.info()` method.
 4. Decorate the `this.step` with new decorator function in the `src/ui/pages/BasePage.js` & `src/ui/components/BaseComponent.js` constructors.
 5. Change the `LOG_LEVEL` to `info` in the `env/.env.staging` file.

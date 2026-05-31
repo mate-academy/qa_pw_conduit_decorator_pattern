@@ -20,4 +20,18 @@ export function decorateWithTitleFromFunction(fn) {
   };
 }
 
+export function decorateWithTiming(fn) {
+  return async function (functionName, stepToRun) {
+    const startTime = Date.now();
+    const result = await fn(functionName, stepToRun);
+    const endTime = Date.now();
+    const elapsed = endTime - startTime;
+
+    const logger = Logger.getInstance();
+    logger.info(`${functionName} took ${elapsed}`);
+
+    return result;
+  };
+}
+
 export { expect } from '@playwright/test';

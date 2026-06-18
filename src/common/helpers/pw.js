@@ -29,7 +29,7 @@ export function decorateWithTiming(fn) {
 
     const endTime = Date.now();
 
-    const logger = Logger.getInstance(process.env.LOG_LEVEL);
+    const logger = Logger.getInstance();
 
     logger.info(`Time taken: ${endTime - startTime}ms`);
 

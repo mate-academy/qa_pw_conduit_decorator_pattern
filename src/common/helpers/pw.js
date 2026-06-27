@@ -24,9 +24,9 @@ export function decorateWithTitleFromFunction(fn) {
 export function decorateWithTiming(fn) {
   return async function (stepTitle, stepToRun) {
     const startTime = Date.now();
-    const logger = Logger.getInstanse(process.env.LOG_LEVEL);
+    const logger = Logger.getInstance();
     
-    const result = fn.apply(stepTitle, stepToRun);
+    const result = await fn(stepTitle, stepToRun);
     
     const endTime = Date.now();
     const duration = endTime - startTime;
@@ -34,7 +34,7 @@ export function decorateWithTiming(fn) {
     logger.info(`Execution time: ${duration}ms`);
 
     return await result;
-  }
+  };
 }
 
 export { expect } from '@playwright/test';

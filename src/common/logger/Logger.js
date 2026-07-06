@@ -33,13 +33,16 @@ export class Logger {
     this.log('error', message);
   }
 
-  static getInstance(level = 'error') {
+  static getInstance(level = process.env.LOG_LEVEL || 'error') {
     if (!Logger.#instance) {
       const logger = new Logger(level);
       Logger.#instance = logger;
-      console.log('New Logger instance created');
     }
     return Logger.#instance;
+  }
+
+  static getInstanse(level = process.env.LOG_LEVEL || 'error') {
+    return Logger.getInstance(level);
   }
 
   getCurrentLevel() {

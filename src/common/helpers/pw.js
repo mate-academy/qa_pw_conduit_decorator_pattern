@@ -24,10 +24,11 @@ export function decorateWithTitleFromFunction(fn) {
 export function decorateWithTiming(fn) {
   return async function (title, stepToRun) {
     const startTime = Date.now();
+    const result = await fn(title, stepToRun);
     const endTime = Date.now();
     const logger = Logger.getInstanse();
     logger.info(`Step execution duration: ${endTime - startTime} ms`);
-    return await fn(title, stepToRun);
+    return result;
   };
 }
 

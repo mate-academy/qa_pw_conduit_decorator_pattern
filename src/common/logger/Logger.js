@@ -33,7 +33,7 @@ export class Logger {
     this.log('error', message);
   }
 
-  static getInstance(level = 'error') {
+  static getInstanse(level = 'error') {
     if (!Logger.#instance) {
       const logger = new Logger(level);
       Logger.#instance = logger;

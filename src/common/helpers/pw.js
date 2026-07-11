@@ -1,4 +1,6 @@
 import { camelCaseToPhrase, capitalize } from '../helpers/stringHelpers';
+export { expect } from '@playwright/test';
+import { Logger } from '../logger/Logger';
 
 export function decorateWithUserId(fn, userId = 0) {
   return async function (title, stepToRun) {
@@ -20,4 +22,20 @@ export function decorateWithTitleFromFunction(fn) {
   };
 }
 
-export { expect } from '@playwright/test';
+
+export function decorateWithTiming(fn) {
+const logger = Logger.getInstanse();
+  return async function (title, stepToRun) {
+    const startTime = Date.now();
+
+    const result = await fn(title, stepToRun);
+
+    const endTime = Date.now();
+    const duration = endTime - startTime;
+
+    logger.info(`Step "${title}" took ${duration} ms`);
+
+    return result;
+  };
+
+}

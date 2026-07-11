@@ -1,6 +1,8 @@
 import {
   decorateWithUserId,
   decorateWithTitleFromFunction,
+  decorateWithTiming,
+  Logger,
 } from '../../common/helpers/pw';
 import { test } from '@playwright/test';
 
@@ -10,5 +12,7 @@ export class BaseComponent {
     this.userId = userId;
     this.step = decorateWithUserId(test.step, this.userId);
     this.step = decorateWithTitleFromFunction(this.step);
+    this.step = decorateWithTiming(this.step, Logger);
+    
   }
 }

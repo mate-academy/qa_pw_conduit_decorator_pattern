@@ -1,7 +1,6 @@
 import { camelCaseToPhrase, capitalize } from '../helpers/stringHelpers';
 export { expect } from '@playwright/test';
-export { Logger } from '../logger/Logger';
-
+import { Logger } from '../logger/Logger';
 
 export function decorateWithUserId(fn, userId = 0) {
   return async function (title, stepToRun) {
@@ -24,7 +23,7 @@ export function decorateWithTitleFromFunction(fn) {
 }
 
 
-export function decorateWithTiming(fn, Logger) {
+export function decorateWithTiming(fn) {
   const logger = Logger.getInstance();
   return async function (title, stepToRun) {
     const startTime = Date.now();

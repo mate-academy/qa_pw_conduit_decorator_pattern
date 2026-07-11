@@ -3,7 +3,6 @@ import {
   decorateWithTitleFromFunction,
   expect,
   decorateWithTiming,
-  Logger,
 } from '../../common/helpers/pw';
 import { test } from '@playwright/test';
 

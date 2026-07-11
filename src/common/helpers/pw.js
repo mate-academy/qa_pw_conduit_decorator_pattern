@@ -24,7 +24,7 @@ export function decorateWithTitleFromFunction(fn) {
 
 
 export function decorateWithTiming(fn) {
-  const logger = Logger.getInstance();
+const logger = Logger.getInstanse();
   return async function (title, stepToRun) {
     const startTime = Date.now();
 

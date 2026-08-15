@@ -23,12 +23,12 @@ export function decorateWithTitleFromFunction(fn) {
 
 export function decorateWithTiming(fn) {
     return async function (functionName, stepToRun) {
-      const logger = Logger.getInstance();
+      const logger = Logger.getInstanse();
       const startTime = Date.now();
       const stepTitle = capitalize(camelCaseToPhrase(functionName));
       const result = await fn(stepTitle, stepToRun);
       const endTime = Date.now();
-      logger.info(`Step "${functionName}" took ${endTime - startTime}ms`);
+      logger.info(`Step "${stepTitle}" took ${endTime - startTime}ms`);
       return result;
     }
 }

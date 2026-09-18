@@ -29,6 +29,9 @@ export function decorateWithTiming(fn) {
 
     const endTime = Date.now();
     const logger = Logger.getInstance();
+    const duration = endTime - startTime;
+
+    logger.info(`Step '${title}' executed in ${duration}ms`);
 
     return result;
   };

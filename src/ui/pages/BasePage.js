@@ -1,4 +1,5 @@
 import {
+  decorateWithTiming,
   decorateWithUserId,
   decorateWithTitleFromFunction,
   expect,
@@ -13,6 +14,7 @@ export class BasePage {
     this.userId = userId;
     this.step = decorateWithUserId(test.step, this.userId);
     this.step = decorateWithTitleFromFunction(this.step);
+    this.step = decorateWithTiming(this.step);
   }
 
   _pageName() {

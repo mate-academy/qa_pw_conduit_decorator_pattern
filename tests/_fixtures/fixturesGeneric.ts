@@ -47,7 +47,7 @@ export const test = base.extend<
   },
   logger: [
     async ({}, use) => {
-      const logger = new Logger(process.env.LOG_LEVEL);
+      const logger = Logger.getInstance(process.env.LOG_LEVEL);
 
       await use(logger);
     },

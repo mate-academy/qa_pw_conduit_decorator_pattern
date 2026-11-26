@@ -2,7 +2,6 @@ import { test as base } from '@playwright/test';
 import { Logger } from '../../src/common/logger/Logger';
 import * as allure from 'allure-js-commons';
 import { parseTestTreeHierarchy } from '../../src/common/helpers/allureHelpers';
-import { UserFactory } from '../../src/factoryItems/UserFactory';
 
 export const test = base.extend<
   {
@@ -15,7 +14,7 @@ export const test = base.extend<
     addAllureTestHierarchy;
   },
   {
-    logger;
+    logger: Logger;
   }
 >({
   usersNumber: [1, { option: true }],
@@ -47,7 +46,7 @@ export const test = base.extend<
   },
   logger: [
     async ({}, use) => {
-      const logger = new Logger(process.env.LOG_LEVEL);
+      const logger = Logger.getInstance(process.env.LOG_LEVEL);
 
       await use(logger);
     },
@@ -81,7 +80,7 @@ export const test = base.extend<
         await allure.subSuite(subSuite);
       }
 
-      await use('addAllureTestHierarhy');
+      await use('addAllureTestHierarchy');
     },
     { scope: 'test', auto: true },
   ],
